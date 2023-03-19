@@ -1,0 +1,16 @@
+﻿@model MvcEFApp.Models.Employee
+
+<h3>Add Employee:</h3>
+<form asp-action="useradd" asp-controller="home">
+    <p>
+        <label asp-for="Name">Name:</label>
+        <input type="text" asp-for="Name" />
+    </p>
+    <p>
+        <label asp-for="BirthDate">BirthDate:</label>
+        <input type="date" asp-for="BirthDate" />
+    </p>
+    <p>
+        <input type="submit" value="Add User" />
+    </p>
+</form>

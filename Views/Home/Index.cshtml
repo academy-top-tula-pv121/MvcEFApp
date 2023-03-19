@@ -1,0 +1,29 @@
+﻿@model IEnumerable<MvcEFApp.Models.Employee>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+@*
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+*@
+
+<h3>Emploees list:</h3>
+<p>
+    <a asp-action="UserAdd">Add Eployee</a>
+</p>
+<table class="table">
+    <tr>
+        <th>Name</th>
+        <th>Birth Date</th>
+    </tr>
+    @foreach(var empl in Model)
+    {
+        <tr>
+            <td>@empl.Name</td>
+            <td>@empl.BirthDate</td>
+        </tr>
+    }
+</table>
