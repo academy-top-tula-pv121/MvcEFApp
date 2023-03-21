@@ -1,0 +1,16 @@
+@model MvcEFApp.Models.Employee
+
+<h3>Edit Employee:</h3>
+<form asp-action="edit" asp-controller="home" asp-route-id="@Model.Id">
+    <p>
+        <label asp-for="Name">Name:</label>
+        <input type="text" asp-for="Name" />
+    </p>
+    <p>
+        <label asp-for="BirthDate">BirthDate:</label>
+        <input type="date" asp-for="BirthDate" />
+    </p>
+    <p>
+        <input type="submit" value="Save User" />
+    </p>
+</form>

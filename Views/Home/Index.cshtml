@@ -1,4 +1,5 @@
-﻿@model IEnumerable<MvcEFApp.Models.Employee>
+﻿@using MvcEFApp.Models
+@model IEnumerable<Employee>
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -10,20 +11,50 @@
 </div>
 *@
 
-<h3>Emploees list:</h3>
-<p>
+<h2>
     <a asp-action="UserAdd">Add Eployee</a>
-</p>
+</h2>
+
+<h3>Emploees list:</h3>
+
 <table class="table">
     <tr>
-        <th>Name</th>
-        <th>Birth Date</th>
+        <th>
+            <a asp-action="Index" asp-route-sortProp="@ViewBag.NameSort">Name</a>
+        </th>
+        <th>
+            <a asp-action="Index" asp-route-sortProp="@ViewBag.BirthDateSort">Birth Date</a>
+        </th>
+        <th>
+            <a asp-action="Index" asp-route-sortProp="@ViewBag.CompanySort">Company</a>
+        </th>
+        <th></th>
+        <th></th>
     </tr>
     @foreach(var empl in Model)
     {
         <tr>
             <td>@empl.Name</td>
             <td>@empl.BirthDate</td>
+            <td>@empl.Company?.Title</td>
+            <td>
+                <a asp-controller="Home"
+                    asp-action="Edit"
+                    asp-route-id="@empl.Id">Edit</a>
+            </td>
+            <td>
+                @*
+                <a asp-controller="Home"
+                    asp-action="Delete"
+                    asp-route-id="@empl.Id">Delete</a>
+                *@
+                <form asp-controller="Home"
+                    asp-action="Delete"
+                    asp-route-id="@empl.Id">
+                    <input type="submit" value="Delete">
+                </form>
+            </td>
+
         </tr>
     }
 </table>
