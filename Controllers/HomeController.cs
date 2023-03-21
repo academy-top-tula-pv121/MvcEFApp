@@ -12,28 +12,28 @@ namespace MvcEFApp.Controllers
         {
             this.companyContext = companyContext;
 
-            Company[] companies = new[]{
-                new Company(){ Title = "Yandex" },
-                new Company(){ Title = "Ozon" },
-                new Company(){ Title = "Mail Group" },
-                new Company(){ Title = "Rambler" },
-            };
+            //Company[] companies = new[]{
+            //    new Company(){ Title = "Yandex" },
+            //    new Company(){ Title = "Ozon" },
+            //    new Company(){ Title = "Mail Group" },
+            //    new Company(){ Title = "Rambler" },
+            //};
 
-            companyContext.Companies.AddRange(companies);
+            //companyContext.Companies.AddRange(companies);
 
-            companyContext.Employees.AddRange(new []{
-                new Employee() { Name = "Joe", BirthDate = new DateTime(2002, 05, 23), Company = companies[0] },
-                new Employee() { Name = "Tom", BirthDate = new DateTime(1999, 01, 1), Company = companies[1] },
-                new Employee() { Name = "Sam", BirthDate = new DateTime(1997, 11, 15), Company = companies[2] },
-                new Employee() { Name = "Bob", BirthDate = new DateTime(2001, 02, 6), Company = companies[3] },
-                new Employee() { Name = "Tim", BirthDate = new DateTime(1999, 09, 9), Company = companies[0] },
-                new Employee() { Name = "Jim", BirthDate = new DateTime(2000, 12, 18), Company = companies[1] },
-                new Employee() { Name = "Leo", BirthDate = new DateTime(1980, 07, 22), Company = companies[2] },
-                new Employee() { Name = "Paul", BirthDate = new DateTime(2002, 07, 3), Company = companies[3] },
-                new Employee() { Name = "Nill", BirthDate = new DateTime(1998, 03, 19), Company = companies[0] },
-            });
+            //companyContext.Employees.AddRange(new []{
+            //    new Employee() { Name = "Joe", BirthDate = new DateTime(2002, 05, 23), Company = companies[0] },
+            //    new Employee() { Name = "Tom", BirthDate = new DateTime(1999, 01, 1), Company = companies[1] },
+            //    new Employee() { Name = "Sam", BirthDate = new DateTime(1997, 11, 15), Company = companies[2] },
+            //    new Employee() { Name = "Bob", BirthDate = new DateTime(2001, 02, 6), Company = companies[3] },
+            //    new Employee() { Name = "Tim", BirthDate = new DateTime(1999, 09, 9), Company = companies[0] },
+            //    new Employee() { Name = "Jim", BirthDate = new DateTime(2000, 12, 18), Company = companies[1] },
+            //    new Employee() { Name = "Leo", BirthDate = new DateTime(1980, 07, 22), Company = companies[2] },
+            //    new Employee() { Name = "Paul", BirthDate = new DateTime(2002, 07, 3), Company = companies[3] },
+            //    new Employee() { Name = "Nill", BirthDate = new DateTime(1998, 03, 19), Company = companies[0] },
+            //});
 
-            companyContext.SaveChanges();
+            //companyContext.SaveChanges();
 
         }
 
@@ -55,7 +55,7 @@ namespace MvcEFApp.Controllers
                 _ => employees.OrderBy(e => e.Name),
             };
 
-            return View(await employees.ToListAsync());
+            return View(await employees.AsNoTracking().ToListAsync());
         }
 
         public IActionResult UserAdd()

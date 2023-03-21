@@ -9,6 +9,7 @@ namespace MvcEFApp.Models
         public CompanyContext(DbContextOptions<CompanyContext> options)
             : base(options)
         {
+            Database.EnsureDeleted();
             Database.EnsureCreated();
         }
     }
