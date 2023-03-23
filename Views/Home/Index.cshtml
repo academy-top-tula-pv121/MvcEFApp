@@ -27,6 +27,15 @@
     .glyphicon-chevron-up {
         transform: rotate(-135deg);
       -webkit-transform: rotate(-135deg);
+    }
+    
+    .glyphicon-chevron-prev:before {
+       content: "\00AB";
+    }
+
+    .glyphicon-chevron-next:after {
+        content: "\00BB";
+    }
     
 </style>
 
@@ -126,7 +135,8 @@
 @if(Model.PageViewModel.HasPrevPage)
 {
     <a asp-action="Index"
-        asp-route-page="@(Model.PageViewModel.PageCurrent - 1)">
+        asp-route-page="@(Model.PageViewModel.PageCurrent - 1)"
+        class="glyphicon-chevron-prev">
         Prev    
     </a>
 }
@@ -134,7 +144,8 @@
 @if (Model.PageViewModel.HasNextPage)
 {
     <a asp-action="Index"
-   asp-route-page="@(Model.PageViewModel.PageCurrent + 1)">
+        asp-route-page="@(Model.PageViewModel.PageCurrent + 1)"
+        class="glyphicon-chevron-next">
         Next
     </a>
 }
