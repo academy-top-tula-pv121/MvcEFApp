@@ -39,17 +39,29 @@ namespace MvcEFApp.Controllers
         }
 
         //, SortProp sortProp = SortProp.NameAsc
-        public async Task<IActionResult> Index(int? companyId, string? employeeName)
+        // int? companyId, string? employeeName
+        public async Task<IActionResult> Index(int page = 1)
         {
+            int pageSize = 3;
+
             IQueryable<Employee> employees = companyContext.Employees.Include(e => e.Company);
 
-            if (companyId is not null && companyId != 0)
-                employees = employees.Where(e => e.CompanyId == companyId);
-            if(!String.IsNullOrWhiteSpace(employeeName))
-                employees = employees.Where(e => e.Name!.Contains(employeeName));
+            int count = await employees.CountAsync();
+            var employeesPage = await employees.Skip((page - 1) * pageSize)
+                                                .Take(pageSize)
+                                                .ToListAsync();
 
-            List<Company> companies = companyContext.Companies.ToList();
-            companies.Insert(0, new Company() { Id = 0, Title = "All companies" });
+            PageViewModel pageViewModel = new(count, page, pageSize);
+            IndexViewModel viewModel = new(employeesPage, pageViewModel);
+
+
+            //if (companyId is not null && companyId != 0)
+            //    employees = employees.Where(e => e.CompanyId == companyId);
+            //if(!String.IsNullOrWhiteSpace(employeeName))
+            //    employees = employees.Where(e => e.Name!.Contains(employeeName));
+
+            //List<Company> companies = companyContext.Companies.ToList();
+            //companies.Insert(0, new Company() { Id = 0, Title = "All companies" });
 
             //ViewData["NameSort"] = sortProp == SortProp.NameAsc ? SortProp.NameDesc : SortProp.NameAsc;
             //ViewData["BirthDateSort"] = sortProp == SortProp.BirthDateAsc ? SortProp.BirthDateDesc : SortProp.BirthDateAsc;
@@ -75,12 +87,12 @@ namespace MvcEFApp.Controllers
             //    SortViewModel = new SortViewModel(sortProp)
             //};
 
-            EmployeeListViewModel viewModel = new EmployeeListViewModel()
-            {
-                Employees = employees.ToList(),
-                Companies = new SelectList(companies, "Id", "Title", companyId),
-                EmployeeName = employeeName
-            };
+            //EmployeeListViewModel viewModel = new EmployeeListViewModel()
+            //{
+            //    Employees = employees.ToList(),
+            //    Companies = new SelectList(companies, "Id", "Title", companyId),
+            //    EmployeeName = employeeName
+            //};
 
             return View(viewModel);
         }
