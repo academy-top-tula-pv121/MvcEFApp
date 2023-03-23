@@ -1,5 +1,8 @@
-﻿@using MvcEFApp.Models
-@model IEnumerable<Employee>
+﻿@using MvcEFApp.Models;
+@model IndexViewModel;
+@addTagHelper *, MvcEFApp
+
+
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -20,7 +23,13 @@
 <table class="table">
     <tr>
         <th>
-            <a asp-action="Index" asp-route-sortProp="@ViewBag.NameSort">Name</a>
+            <sort-header action="Index" 
+                         up="@Model.SortViewModel.Up"
+                         current="@Model.SortViewModel.Current"
+                         property="@Model.SortViewModel.NameSort">
+            Name         
+            </sort-header>
+            @*<a asp-action="Index" asp-route-sortProp="@ViewBag.NameSort">Name</a>*@
         </th>
         <th>
             <a asp-action="Index" asp-route-sortProp="@ViewBag.BirthDateSort">Birth Date</a>

@@ -45,9 +45,9 @@ namespace MvcEFApp.Controllers
             //ViewData["BirthDateSort"] = sortProp == SortProp.BirthDateAsc ? SortProp.BirthDateDesc : SortProp.BirthDateAsc;
             //ViewData["CompanySort"] = sortProp == SortProp.CompanyAsc ? SortProp.CompanyDesc : SortProp.CompanyAsc;
 
-            ViewBag.NameSort = sortProp == SortProp.NameAsc ? SortProp.NameDesc : SortProp.NameAsc;
-            ViewBag.BirthDateSort = sortProp == SortProp.BirthDateAsc ? SortProp.BirthDateDesc : SortProp.BirthDateAsc;
-            ViewBag.CompanySort = sortProp == SortProp.CompanyAsc ? SortProp.CompanyDesc : SortProp.CompanyAsc;
+            //ViewBag.NameSort = sortProp == SortProp.NameAsc ? SortProp.NameDesc : SortProp.NameAsc;
+            //ViewBag.BirthDateSort = sortProp == SortProp.BirthDateAsc ? SortProp.BirthDateDesc : SortProp.BirthDateAsc;
+            //ViewBag.CompanySort = sortProp == SortProp.CompanyAsc ? SortProp.CompanyDesc : SortProp.CompanyAsc;
 
             employees = sortProp switch
             {
@@ -58,8 +58,13 @@ namespace MvcEFApp.Controllers
                 SortProp.CompanyDesc => employees.OrderByDescending(e => e.Company!.Title),
                 _ => employees.OrderBy(e => e.Name),
             };
+            IndexViewModel viewModel = new IndexViewModel()
+            {
+                Employees = await employees.AsNoTracking().ToListAsync(),
+                SortViewModel = new SortViewModel(sortProp)
+            };
 
-            return View(await employees.AsNoTracking().ToListAsync());
+            return View(viewModel);
         }
 
         public IActionResult UserAdd()
