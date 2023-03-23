@@ -3,7 +3,7 @@
     public class SortViewModel
     {
         public SortProp NameSort { get; set; } // значение для сортировки по имени
-        public SortProp AgeSort { get; set; }    // значение для сортировки по возрасту
+        public SortProp BirthDateSort { get; set; }    // значение для сортировки по возрасту
         public SortProp CompanySort { get; set; }   // значение для сортировки по компании
         public SortProp Current { get; set; }     // значение свойства, выбранного для сортировки
         public bool Up { get; set; }  // Сортировка по возрастанию или убыванию
@@ -12,7 +12,7 @@
         {
             // значения по умолчанию
             NameSort = SortProp.NameAsc;
-            AgeSort = SortProp.BirthDateAsc;
+            BirthDateSort = SortProp.BirthDateAsc;
             CompanySort = SortProp.CompanyAsc;
             Up = true;
 
@@ -28,10 +28,10 @@
                     Current = NameSort = SortProp.NameAsc;
                     break;
                 case SortProp.BirthDateAsc:
-                    Current = AgeSort = SortProp.BirthDateAsc;
+                    Current = BirthDateSort = SortProp.BirthDateAsc;
                     break;
                 case SortProp.BirthDateDesc:
-                    Current = AgeSort = SortProp.BirthDateDesc;
+                    Current = BirthDateSort = SortProp.BirthDateDesc;
                     break;
                 case SortProp.CompanyAsc:
                     Current = CompanySort = SortProp.CompanyDesc;

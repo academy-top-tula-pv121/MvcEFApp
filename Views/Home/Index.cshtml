@@ -27,20 +27,32 @@
                          up="@Model.SortViewModel.Up"
                          current="@Model.SortViewModel.Current"
                          property="@Model.SortViewModel.NameSort">
-            Name         
+                Name         
             </sort-header>
             @*<a asp-action="Index" asp-route-sortProp="@ViewBag.NameSort">Name</a>*@
         </th>
         <th>
-            <a asp-action="Index" asp-route-sortProp="@ViewBag.BirthDateSort">Birth Date</a>
+            <sort-header action="Index"
+                         up="@Model.SortViewModel.Up"
+                         current="@Model.SortViewModel.Current"
+                         property="@Model.SortViewModel.BirthDateSort">
+                Birth Date
+            </sort-header>
+            @*<a asp-action="Index" asp-route-sortProp="@ViewBag.BirthDateSort">Birth Date</a>*@
         </th>
         <th>
-            <a asp-action="Index" asp-route-sortProp="@ViewBag.CompanySort">Company</a>
+            <sort-header action="Index"
+                         up="@Model.SortViewModel.Up"
+                         current="@Model.SortViewModel.Current"
+                         property="@Model.SortViewModel.CompanySort">
+                Company
+            </sort-header>
+            @*<a asp-action="Index" asp-route-sortProp="@ViewBag.CompanySort">Company</a>*@
         </th>
         <th></th>
         <th></th>
     </tr>
-    @foreach(var empl in Model)
+    @foreach(var empl in Model.Employees)
     {
         <tr>
             <td>@empl.Name</td>
