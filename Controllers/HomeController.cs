@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MvcEFApp.Models;
 using System.Diagnostics;
@@ -37,9 +38,18 @@ namespace MvcEFApp.Controllers
 
         }
 
-        public async Task<IActionResult> Index(SortProp sortProp = SortProp.NameAsc)
+        //, SortProp sortProp = SortProp.NameAsc
+        public async Task<IActionResult> Index(int? companyId, string? employeeName)
         {
             IQueryable<Employee> employees = companyContext.Employees.Include(e => e.Company);
+
+            if (companyId is not null && companyId != 0)
+                employees = employees.Where(e => e.CompanyId == companyId);
+            if(!String.IsNullOrWhiteSpace(employeeName))
+                employees = employees.Where(e => e.Name!.Contains(employeeName));
+
+            List<Company> companies = companyContext.Companies.ToList();
+            companies.Insert(0, new Company() { Id = 0, Title = "All companies" });
 
             //ViewData["NameSort"] = sortProp == SortProp.NameAsc ? SortProp.NameDesc : SortProp.NameAsc;
             //ViewData["BirthDateSort"] = sortProp == SortProp.BirthDateAsc ? SortProp.BirthDateDesc : SortProp.BirthDateAsc;
@@ -49,20 +59,27 @@ namespace MvcEFApp.Controllers
             //ViewBag.BirthDateSort = sortProp == SortProp.BirthDateAsc ? SortProp.BirthDateDesc : SortProp.BirthDateAsc;
             //ViewBag.CompanySort = sortProp == SortProp.CompanyAsc ? SortProp.CompanyDesc : SortProp.CompanyAsc;
 
-            employees = sortProp switch
-            {
-                SortProp.NameDesc => employees.OrderByDescending(e => e.Name),
-                SortProp.BirthDateAsc => employees.OrderBy(e => e.BirthDate),
-                SortProp.BirthDateDesc => employees.OrderByDescending(e => e.BirthDate),
-                SortProp.CompanyAsc => employees.OrderBy(e => e.Company!.Title),
-                SortProp.CompanyDesc => employees.OrderByDescending(e => e.Company!.Title),
-                _ => employees.OrderBy(e => e.Name),
-            };
+            //employees = sortProp switch
+            //{
+            //    SortProp.NameDesc => employees.OrderByDescending(e => e.Name),
+            //    SortProp.BirthDateAsc => employees.OrderBy(e => e.BirthDate),
+            //    SortProp.BirthDateDesc => employees.OrderByDescending(e => e.BirthDate),
+            //    SortProp.CompanyAsc => employees.OrderBy(e => e.Company!.Title),
+            //    SortProp.CompanyDesc => employees.OrderByDescending(e => e.Company!.Title),
+            //    _ => employees.OrderBy(e => e.Name),
+            //};
 
-            IndexViewModel viewModel = new IndexViewModel()
+            //IndexViewModel viewModel = new IndexViewModel()
+            //{
+            //    Employees = await employees.ToListAsync(),
+            //    SortViewModel = new SortViewModel(sortProp)
+            //};
+
+            EmployeeListViewModel viewModel = new EmployeeListViewModel()
             {
-                Employees = await employees.ToListAsync(),
-                SortViewModel = new SortViewModel(sortProp)
+                Employees = employees.ToList(),
+                Companies = new SelectList(companies, "Id", "Title", companyId),
+                EmployeeName = employeeName
             };
 
             return View(viewModel);
