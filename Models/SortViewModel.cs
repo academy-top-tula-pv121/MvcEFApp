@@ -16,7 +16,7 @@
             CompanySort = SortProp.CompanyAsc;
             Up = true;
 
-            if (sortOrder == SortProp.BirthDateAsc || sortOrder == SortProp.NameDesc
+            if (sortOrder == SortProp.BirthDateDesc || sortOrder == SortProp.NameDesc
                 || sortOrder == SortProp.CompanyDesc)
             {
                 Up = false;
