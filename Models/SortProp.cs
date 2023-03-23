@@ -1,9 +1,13 @@
-public enum SortProp
+namespace MvcEFApp.Models
 {
-    NameAsc,
-    NameDesc,
-    BirthDateAsc,
-    BirthDateDesc,
-    CompanyAsc,
-    CompanyDesc,
+    public enum SortProp
+    {
+        NameAsc,
+        NameDesc,
+        BirthDateAsc,
+        BirthDateDesc,
+        CompanyAsc,
+        CompanyDesc,
+    }
 }
+    

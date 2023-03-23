@@ -41,9 +41,13 @@ namespace MvcEFApp.Controllers
         {
             IQueryable<Employee> employees = companyContext.Employees.Include(e => e.Company);
 
-            ViewData["NameSort"] = sortProp == SortProp.NameAsc ? SortProp.NameDesc : SortProp.NameAsc;
-            ViewData["BirthDateSort"] = sortProp == SortProp.BirthDateAsc ? SortProp.BirthDateDesc : SortProp.BirthDateAsc;
-            ViewData["CompanySort"] = sortProp == SortProp.CompanyAsc ? SortProp.CompanyDesc : SortProp.CompanyAsc;
+            //ViewData["NameSort"] = sortProp == SortProp.NameAsc ? SortProp.NameDesc : SortProp.NameAsc;
+            //ViewData["BirthDateSort"] = sortProp == SortProp.BirthDateAsc ? SortProp.BirthDateDesc : SortProp.BirthDateAsc;
+            //ViewData["CompanySort"] = sortProp == SortProp.CompanyAsc ? SortProp.CompanyDesc : SortProp.CompanyAsc;
+
+            ViewBag.NameSort = sortProp == SortProp.NameAsc ? SortProp.NameDesc : SortProp.NameAsc;
+            ViewBag.BirthDateSort = sortProp == SortProp.BirthDateAsc ? SortProp.BirthDateDesc : SortProp.BirthDateAsc;
+            ViewBag.CompanySort = sortProp == SortProp.CompanyAsc ? SortProp.CompanyDesc : SortProp.CompanyAsc;
 
             employees = sortProp switch
             {
