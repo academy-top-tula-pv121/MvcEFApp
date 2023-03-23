@@ -28,7 +28,7 @@ namespace MvcEFApp.TagHelpers
         {
             IUrlHelper urlHelper = urlHelperFactory.GetUrlHelper(ViewContext);
             output.TagName = "a";
-            string? url = urlHelper.Action(Action, new { sortOrder = Property });
+            string? url = urlHelper.Action(Action, new { sortProp = Property });
             output.Attributes.SetAttribute("href", url);
             
             if (Current == Property)

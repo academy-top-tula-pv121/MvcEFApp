@@ -58,9 +58,10 @@ namespace MvcEFApp.Controllers
                 SortProp.CompanyDesc => employees.OrderByDescending(e => e.Company!.Title),
                 _ => employees.OrderBy(e => e.Name),
             };
+
             IndexViewModel viewModel = new IndexViewModel()
             {
-                Employees = await employees.AsNoTracking().ToListAsync(),
+                Employees = await employees.ToListAsync(),
                 SortViewModel = new SortViewModel(sortProp)
             };
 

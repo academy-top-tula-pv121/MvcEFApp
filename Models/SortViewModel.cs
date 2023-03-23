@@ -28,10 +28,10 @@
                     Current = NameSort = SortProp.NameAsc;
                     break;
                 case SortProp.BirthDateAsc:
-                    Current = BirthDateSort = SortProp.BirthDateAsc;
+                    Current = BirthDateSort = SortProp.BirthDateDesc;
                     break;
                 case SortProp.BirthDateDesc:
-                    Current = BirthDateSort = SortProp.BirthDateDesc;
+                    Current = BirthDateSort = SortProp.BirthDateAsc;
                     break;
                 case SortProp.CompanyAsc:
                     Current = CompanySort = SortProp.CompanyDesc;
