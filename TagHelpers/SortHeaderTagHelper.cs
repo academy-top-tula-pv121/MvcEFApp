@@ -11,7 +11,7 @@ namespace MvcEFApp.TagHelpers
     {
         public SortProp Property { get; set; }
         public SortProp Current { get; set; }
-        public string? Action { get; set; } 
+        public string? Action { get; set; }
         public bool Up { get; set; }
 
         [ViewContext]
