@@ -30,15 +30,15 @@ namespace MvcEFApp.TagHelpers
             output.TagName = "a";
             string? url = urlHelper.Action(Action, new { sortOrder = Property });
             output.Attributes.SetAttribute("href", url);
-            // если текущее свойство имеет значение CurrentSort
+            
             if (Current == Property)
             {
                 TagBuilder tag = new TagBuilder("i");
                 tag.AddCssClass("glyphicon");
 
-                if (Up == true)   // если сортировка по возрастанию
+                if (Up == true)   
                     tag.AddCssClass("glyphicon-chevron-up");
-                else   // если сортировка по убыванию
+                else   
                     tag.AddCssClass("glyphicon-chevron-down");
 
                 output.PreContent.AppendHtml(tag);
