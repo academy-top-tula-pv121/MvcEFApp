@@ -10,7 +10,6 @@
 
         public SortViewModel(SortProp sortOrder)
         {
-            // значения по умолчанию
             NameSort = sortOrder == SortProp.NameAsc ? SortProp.NameDesc : SortProp.NameAsc;
             BirthDateSort = sortOrder == SortProp.BirthDateAsc ? SortProp.BirthDateDesc : SortProp.BirthDateAsc;
             CompanySort = sortOrder == SortProp.CompanyAsc ? SortProp.CompanyDesc : SortProp.CompanyAsc;
@@ -23,31 +22,6 @@
             {
                 Up = false;
             }
-
-
-            /*
-            switch (sortOrder)
-            {
-                case SortProp.NameDesc:
-                    Current = NameSort = SortProp.NameAsc;
-                    break;
-                case SortProp.BirthDateAsc:
-                    Current = BirthDateSort = SortProp.BirthDateDesc;
-                    break;
-                case SortProp.BirthDateDesc:
-                    Current = BirthDateSort = SortProp.BirthDateAsc;
-                    break;
-                case SortProp.CompanyAsc:
-                    Current = CompanySort = SortProp.CompanyDesc;
-                    break;
-                case SortProp.CompanyDesc:
-                    Current = CompanySort = SortProp.CompanyAsc;
-                    break;
-                default:
-                    Current = NameSort = SortProp.NameDesc;
-                    break;
-            }
-            */
         }
     }
 }
