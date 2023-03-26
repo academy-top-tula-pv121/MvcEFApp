@@ -1,110 +1,78 @@
-﻿@using MvcEFApp.Models;
-@model IndexViewModel;
-@*model EmployeeListViewModel*@
-
-@addTagHelper *, MvcEFApp
-
-
-@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@using MvcEFApp.Models
+@model IndexViewModel
 
 <style>
-    td, th {padding: 0 13px 0 0;}
- 
-    .glyphicon{
-        border: solid black;
-      border-width: 0 3px 3px 0;
-      display: inline-block;
-      padding: 3px;
-      margin: 0 5px;
+    td, th {
+        padding: 0 13px 0 0;
     }
+
+    .glyphicon {
+        border: solid black;
+        border-width: 0 3px 3px 0;
+        display: inline-block;
+        padding: 3px;
+        margin: 0 5px;
+    }
+
     .glyphicon-chevron-down {
         transform: rotate(45deg);
-      -webkit-transform: rotate(45deg);
+        -webkit-transform: rotate(45deg);
     }
-  
+
     .glyphicon-chevron-up {
         transform: rotate(-135deg);
-      -webkit-transform: rotate(-135deg);
+        -webkit-transform: rotate(-135deg);
     }
-    
+
     .glyphicon-chevron-prev:before {
-       content: "\00AB";
+        content: "\00AB";
     }
 
     .glyphicon-chevron-next:after {
         content: "\00BB";
     }
-    
 </style>
-
-@*
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
-*@
-
-@*
-<h2>
-    <a asp-action="UserAdd">Add Eployee</a>
-</h2>
 
 <form method="get">
     <p>
-        <label asp-for="EmployeeName">Name</label>
-        <input asp-for="EmployeeName" />
+        <label asp-for="@Model.FilterViewModel.SelectedName">Name</label>
+        <input asp-for="@Model.FilterViewModel.SelectedName" name="name" />
     </p>
 
     <p>
-        <label asp-for="Companies">Companies</label>
-        <select asp-items="Model.Companies" name="companyId"></select>
+        <label asp-for="@Model.FilterViewModel.Companies">Companies</label>
+        <select asp-items="@Model.FilterViewModel.Companies" name="companyId"></select>
     </p>
     <input type="submit" value="Select" />
 </form>
-*@
+
 <h3>Emploees list:</h3>
 
 <table class="table">
     <tr>
-        
-        @*<th>
-            <sort-header action="Index" 
-                         up="@Model.SortViewModel.Up"
-                         current="@Model.SortViewModel.Current"
-                         property="@Model.SortViewModel.NameSort">
-                Name         
-            </sort-header>*@
-            @*<a asp-action="Index" asp-route-sortProp="@ViewBag.NameSort">Name</a>*@
-        @*</th>
         <th>
-            <sort-header action="Index"
-                         up="@Model.SortViewModel.Up"
-                         current="@Model.SortViewModel.Current"
-                         property="@Model.SortViewModel.BirthDateSort">
-                Birth Date
-            </sort-header>*@
-            @*<a asp-action="Index" asp-route-sortProp="@ViewBag.BirthDateSort">Birth Date</a>*@
-        @*</th>
+            <a asp-action="Index" 
+               asp-route-sortOrder="@(Model.SortViewModel.NameSort)"
+               asp-route-name="@(Model.FilterViewModel.SelectedName)"
+               asp-route-companyid="@(Model.FilterViewModel.SelectedCompany)">Name</a>
+        </th>
         <th>
-            <sort-header action="Index"
-                         up="@Model.SortViewModel.Up"
-                         current="@Model.SortViewModel.Current"
-                         property="@Model.SortViewModel.CompanySort">
-                Company
-            </sort-header>*@
-            @*<a asp-action="Index" asp-route-sortProp="@ViewBag.CompanySort">Company</a>*@
-        @*</th>*@
-        <th>Name</th>
-        <th>Birth Date</th>
-        <th>Company</th>
-        
+            <a asp-action="Index"
+               asp-route-sortOrder="@(Model.SortViewModel.BirthDateSort)"
+               asp-route-name="@(Model.FilterViewModel.SelectedName)"
+               asp-route-companyid="@(Model.FilterViewModel.SelectedCompany)">Birth Date</a>
+        </th>
+        <th>
+            <a asp-action="Index"
+               asp-route-sortOrder="@(Model.SortViewModel.CompanySort)"
+               asp-route-name="@(Model.FilterViewModel.SelectedName)"
+               asp-route-companyid="@(Model.FilterViewModel.SelectedCompany)">Company</a>
+        </th>
         <th></th>
         <th></th>
-     
+
     </tr>
-    @foreach(var empl in Model.Employees)
+    @foreach (var empl in Model.Employees)
     {
         <tr>
             <td>@empl.Name</td>
@@ -112,40 +80,40 @@
             <td>@empl.Company?.Title</td>
             <td>
                 <a asp-controller="Home"
-                    asp-action="Edit"
-                    asp-route-id="@empl.Id">Edit</a>
+               asp-action="Edit"
+               asp-route-id="@empl.Id">Edit</a>
             </td>
             <td>
-                @*
-                <a asp-controller="Home"
-                    asp-action="Delete"
-                    asp-route-id="@empl.Id">Delete</a>
-                *@
                 <form asp-controller="Home"
-                    asp-action="Delete"
-                    asp-route-id="@empl.Id">
+                  asp-action="Delete"
+                  asp-route-id="@empl.Id">
                     <input type="submit" value="Delete">
                 </form>
             </td>
-
         </tr>
     }
 </table>
 
-@if(Model.PageViewModel.HasPrevPage)
+@if (Model.PageViewModel.HasPrevPage)
 {
     <a asp-action="Index"
-        asp-route-page="@(Model.PageViewModel.PageCurrent - 1)"
-        class="glyphicon-chevron-prev">
-        Prev    
+       asp-route-page="@(Model.PageViewModel.PageCurrent - 1)"
+       asp-route-sortOrder="@(Model.SortViewModel.Current)"
+       asp-route-name="@(Model.FilterViewModel.SelectedName)"
+       asp-route-companyid="@(Model.FilterViewModel.SelectedCompany)"
+       class="glyphicon-chevron-prev">
+       Prev
     </a>
 }
 
 @if (Model.PageViewModel.HasNextPage)
 {
     <a asp-action="Index"
-        asp-route-page="@(Model.PageViewModel.PageCurrent + 1)"
-        class="glyphicon-chevron-next">
-        Next
+       asp-route-page="@(Model.PageViewModel.PageCurrent + 1)"
+       asp-route-sortOrder="@(Model.SortViewModel.Current)"
+       asp-route-name="@(Model.FilterViewModel.SelectedName)"
+       asp-route-companyid="@(Model.FilterViewModel.SelectedCompany)"
+       class="glyphicon-chevron-next">
+       Next
     </a>
 }

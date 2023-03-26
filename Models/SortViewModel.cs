@@ -11,9 +11,11 @@
         public SortViewModel(SortProp sortOrder)
         {
             // значения по умолчанию
-            NameSort = SortProp.NameAsc;
-            BirthDateSort = SortProp.BirthDateAsc;
-            CompanySort = SortProp.CompanyAsc;
+            NameSort = sortOrder == SortProp.NameAsc ? SortProp.NameDesc : SortProp.NameAsc;
+            BirthDateSort = sortOrder == SortProp.BirthDateAsc ? SortProp.BirthDateDesc : SortProp.BirthDateAsc;
+            CompanySort = sortOrder == SortProp.CompanyAsc ? SortProp.CompanyDesc : SortProp.CompanyAsc;
+            Current = sortOrder;
+
             Up = true;
 
             if (sortOrder == SortProp.BirthDateDesc || sortOrder == SortProp.NameDesc
@@ -22,6 +24,8 @@
                 Up = false;
             }
 
+
+            /*
             switch (sortOrder)
             {
                 case SortProp.NameDesc:
@@ -43,6 +47,7 @@
                     Current = NameSort = SortProp.NameDesc;
                     break;
             }
+            */
         }
     }
 }

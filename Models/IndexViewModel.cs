@@ -4,13 +4,18 @@
     {
         public IEnumerable<Employee> Employees { get; set; } 
             = new List<Employee>();
-        //public SortViewModel SortViewModel { set; get; } 
-        //    = new SortViewModel(SortProp.NameAsc);
+        public SortViewModel SortViewModel { set; get; } 
         public PageViewModel PageViewModel { get; set; }
-        public IndexViewModel(IEnumerable<Employee> employees, PageViewModel pageViewModel)
+        public FilterViewModel FilterViewModel { set; get; }
+        public IndexViewModel(IEnumerable<Employee> employees,
+                                            SortViewModel sortViewModel,
+                                            FilterViewModel filterViewModel,
+                                            PageViewModel pageViewModel)
         {
             Employees = employees;
             PageViewModel = pageViewModel;
+            SortViewModel = sortViewModel;
+            FilterViewModel = filterViewModel;
         }
     }
 }
